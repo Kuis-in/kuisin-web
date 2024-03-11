@@ -1,0 +1,24 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+body {
+	background-color: #040e1f;
+	color: white;
+}
+
+button:not(.text-button) {
+	transition: all 0.2s ease-in-out;
+	@apply rounded-full px-6 py-2 bg-primary hover:bg-secondary hover:px-8 disabled:bg-disabledButton;
+}
+
+button.text-button {
+	transition: all 0.2s ease-in-out;
+	@apply text-primary hover:text-secondary;
+}
+
+input[type='text'],
+input[type='number'],
+select {
+	@apply rounded text-black;
+}
