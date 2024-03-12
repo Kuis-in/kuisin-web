@@ -35,7 +35,7 @@
 
         try {
             if ($currentUser == null) await loginWithGoogle();
-            const res = await fetch(api.postJob, {
+            const res = await fetch(api.jobs, {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json",
@@ -173,7 +173,7 @@
             </div>
         </div>
         <div class="flex items-center justify-center">
-            <button type="submit" disabled={submitting || typeof($currentUser) == 'undefined'}>
+            <button class="primary-button" type="submit" disabled={submitting || typeof($currentUser) == 'undefined'}>
                 {#if submitting}
                     <LoadingIndicator />
                 {:else}

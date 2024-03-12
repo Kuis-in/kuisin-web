@@ -5,7 +5,7 @@ export const lottieAnimations = {
 };
 
 export const api = {
-	postJob: `${PUBLIC_API_BASE_URL}/jobs`,
+	jobs: `${PUBLIC_API_BASE_URL}/jobs`,
 	jobDetail: (id: string) => `${PUBLIC_API_BASE_URL}/jobs/${id}`,
 	jobLiveStatusNegotiate: `${PUBLIC_API_BASE_URL}/jobs/live-status-ws`
 };

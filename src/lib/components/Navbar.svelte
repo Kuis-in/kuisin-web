@@ -15,6 +15,10 @@
         loginWithGoogle();
     }
 
+    async function goToHistory() {
+        goto("/jobs");
+    }
+
     async function onLogout() {
         await auth.signOut();
         goto("/");
@@ -32,7 +36,7 @@
         <div>
             {#if $currentUser}
                 <div class="flex items-center">
-                    <button class="text-button" title="Riwayat">
+                    <button class="text-button" on:click={goToHistory} title="Riwayat">
                         <Icon icon={faClockRotateLeft} class="mr-5 text-xl mb-0.5" />
                     </button>
                     <button class="text-button" on:click={onLogout} title="Keluar">
@@ -41,7 +45,7 @@
                     <img class="rounded-full" src="{$currentUser.photoURL}" alt="avatar" width="36" height="36" />
                 </div>
             {:else }
-                <button on:click={onLogin} disabled={typeof($currentUser) == 'undefined'}>Masuk</button>
+                <button class="primary-button" on:click={onLogin} disabled={typeof($currentUser) == 'undefined'}>Masuk</button>
             {/if}
         </div>
     </div>

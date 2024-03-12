@@ -7,7 +7,7 @@ body {
 	color: white;
 }
 
-button:not(.text-button) {
+button.primary-button {
 	transition: all 0.2s ease-in-out;
 	@apply rounded-full px-6 py-2 bg-primary hover:bg-secondary hover:px-8 disabled:bg-disabledButton;
 }

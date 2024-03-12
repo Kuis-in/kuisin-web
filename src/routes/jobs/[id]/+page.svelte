@@ -113,7 +113,7 @@
     <div class="flex flex-col items-center mb-8 md:flex-row">
         <img src="{jobDetail?.videoThumbnailUrl}" alt="{jobDetail?.videoTitle}" class="video-thumbnail">
         <div class="text-center md:text-start">
-            <h1 class="text-2xl font-bold lg:text-4xl">{jobDetail?.videoTitle}</h1>
+            <h1 class="mb-1 text-2xl font-bold lg:text-4xl">{jobDetail?.videoTitle}</h1>
             <a href="{getVideoUrl()}" class="link" target="_blank">Lihat Video ></a>
         </div>
     </div>

@@ -5,6 +5,7 @@ export type JobLog = {
 	videoTitle: string;
 	videoThumbnailUrl: string;
 	videoSource: string;
+	status: 'O' | 'D' | 'F';
 	resultTranscript: string | null;
 	resultQuiz: Quiz | null;
 	utcCreatedAt: string;
