@@ -48,6 +48,14 @@
         }
     })
 
+    function getVideoUrl(): string {
+        if (jobDetail == null) return "";
+        if (jobDetail.videoSource === "YouTube") {
+            return `https://www.youtube.com/watch?v=${jobDetail.videoId}`;
+        }
+        return "";
+    }
+
     function getQuizQuestions(): QuizQuestion[] {
         if (jobDetail?.resultQuiz == null) return [];
         return jobDetail?.resultQuiz.questions ?? [];
@@ -98,69 +106,88 @@
     }
 </script>
 
-<div class="grid grid-cols-2 gap-8">
-    <div>
-        <div class="flex items-center justify-between mb-3">
-            <div class="text-xl font-semibold">Transkrip</div>
-            {#if jobDetail?.resultTranscript}
-                <button class="text-button" on:click={onTranscriptCopyToClipboard}>Salin ke clipboard</button>
-            {/if}
+<main>
+    <div class="flex flex-col items-center md:flex-row">
+        <img src="{jobDetail?.videoThumbnailUrl}" alt="{jobDetail?.videoTitle}" class="video-thumbnail">
+        <div class="text-center md:text-start">
+            <h1 class="text-2xl font-bold lg:text-4xl">{jobDetail?.videoTitle}</h1>
+            <a href="{getVideoUrl()}" class="link" target="_blank">Lihat Video ></a>
         </div>
-        <div class="mb-10 result-container">
-            {#if jobDetail?.resultTranscript}
-                {jobDetail?.resultTranscript}
-            {:else}
-                <div class="flex items-center justify-center">
-                    <LoadingIndicator />
-                    <div class="ml-1">{latestTranscriptStatusMsg}</div>
-                </div>
-            {/if}
-        </div>
-        
     </div>
-    <div>
-        <div class="flex items-center justify-between mb-3">
-            <div class="text-xl font-semibold">Quiz</div>
-            {#if jobDetail?.resultQuiz}
-                <div class="flex items-center">
-                    <button class="mr-4 text-button" on:click={onQuizCopyToClipboard}>Salin ke clipboard</button>
-                    <select on:change={onQuizViewModeChanged} class="py-0 my-0">
-                        <option value="text">Teks</option>
-                        <option value="json">JSON</option>
-                    </select>
-                </div>
-            {/if}
-        </div>
-        <div id="quizResultContainer" class="flex flex-col result-container">
-            {#if jobDetail?.resultQuiz}
-                {#if isQuizJsonViewMode}
-                    <pre>{JSON.stringify(jobDetail.resultQuiz, null, 2)}</pre>
-                {:else}
-                    {#each getQuizQuestions() as qq, qqi}
-                        <div class="mb-4">
-                            <div class="mb-2">{qqi + 1}. {qq.questionText}</div>
-                            <div class="ml-4">
-                                {#each qq.answers as qa, qai}
-                                    <div class="mb-1" class:font-semibold={qa.isValid} class:text-primary={qa.isValid}>
-                                        ({String.fromCharCode(qai + 65)}) {qa.answerText}
-                                    </div>
-                                {/each}
-                            </div>
-                        </div>
-                    {/each}
+    <div class="grid md:gap-8 md:grid-cols-2">
+        <div>
+            <div class="section-header">
+                <div class="text-xl font-semibold">Transkrip</div>
+                {#if jobDetail?.resultTranscript}
+                    <button class="text-button" on:click={onTranscriptCopyToClipboard}>Salin ke clipboard</button>
                 {/if}
-            {:else}
-                <div class="flex items-center justify-center">
-                    <LoadingIndicator />
-                    <div class="ml-1">{latestQuizStatusMsg}</div>
-                </div>
-            {/if}
+            </div>
+            <div class="mb-10 result-container">
+                {#if jobDetail?.resultTranscript}
+                    {jobDetail?.resultTranscript}
+                {:else}
+                    <div class="flex items-center justify-center">
+                        <LoadingIndicator />
+                        <div class="ml-1">{latestTranscriptStatusMsg}</div>
+                    </div>
+                {/if}
+            </div>
+            
+        </div>
+        <div>
+            <div class="section-header">
+                <div class="text-xl font-semibold">Quiz</div>
+                {#if jobDetail?.resultQuiz}
+                    <div class="flex items-center">
+                        <button class="mr-4 text-button" on:click={onQuizCopyToClipboard}>Salin ke clipboard</button>
+                        <select on:change={onQuizViewModeChanged} class="py-0 my-0">
+                            <option value="text">Teks</option>
+                            <option value="json">JSON</option>
+                        </select>
+                    </div>
+                {/if}
+            </div>
+            <div id="quizResultContainer" class="flex flex-col result-container">
+                {#if jobDetail?.resultQuiz}
+                    {#if isQuizJsonViewMode}
+                        <pre>{JSON.stringify(jobDetail.resultQuiz, null, 2)}</pre>
+                    {:else}
+                        {#each getQuizQuestions() as qq, qqi}
+                            <div class="mb-4">
+                                <div class="mb-2">{qqi + 1}. {qq.questionText}</div>
+                                <div class="ml-4">
+                                    {#each qq.answers as qa, qai}
+                                        <div class="mb-1" class:font-semibold={qa.isValid} class:text-primary={qa.isValid}>
+                                            ({String.fromCharCode(qai + 65)}) {qa.answerText}
+                                        </div>
+                                    {/each}
+                                </div>
+                            </div>
+                        {/each}
+                    {/if}
+                {:else}
+                    <div class="flex items-center justify-center">
+                        <LoadingIndicator />
+                        <div class="ml-1">{latestQuizStatusMsg}</div>
+                    </div>
+                {/if}
+            </div>
         </div>
     </div>
-</div>
+</main>
 
 <style lang="postcss">
     .result-container {
-        @apply p-5 border border-[#3C434F] rounded-lg max-h-[70vh] overflow-auto;
+        @apply md:p-5 p-4 border border-[#3C434F] rounded-lg;
+    }
+    .video-thumbnail {
+        @apply md:mr-8 mb-4 md:mb-0;
+        height: 100px;
+    }
+    .section-header {
+        @apply flex items-center justify-between pb-3 pt-10;
+        background-color: #040e1f;
+        position: sticky;
+        top: 50px;
     }
 </style>

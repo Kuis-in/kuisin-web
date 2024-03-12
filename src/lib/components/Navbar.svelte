@@ -19,30 +19,35 @@
 
 <nav>
     <div>
-        <a href="/" class="flex items-center">
-            <img class="mr-3" src="/logo.svg" alt="logo" width="40" height="40" />
-            <div class="text-2xl font-bold">Kuis<span class="text-primary">in</span></div>
-        </a>
-    </div>
-    <div>
-        {#if $currentUser}
-            <div class="flex items-center">
-                <!-- <div class="mr-3 text-right">
-                    <div class="leading-none">{$currentUser.displayName}</div>
-                    <button class="text-sm leading-none text-button" on:click={onLogout}>Keluar</button>
-                </div> -->
-                <img class="rounded-full" src="{$currentUser.photoURL}" alt="avatar" width="40" height="40" />
-            </div>
-        {:else }
-            <button on:click={onLogin} disabled={typeof($currentUser) == 'undefined'}>Masuk</button>
-        {/if}
+        <div>
+            <a href="/" class="flex items-center">
+                <img class="mr-3" src="/logo.svg" alt="logo" width="40" height="40" />
+                <div class="text-2xl font-bold">Kuis<span class="text-primary">in</span></div>
+            </a>
+        </div>
+        <div>
+            {#if $currentUser}
+                <div class="flex items-center">
+                    <!-- <div class="mr-3 text-right">
+                        <div class="leading-none">{$currentUser.displayName}</div>
+                        <button class="text-sm leading-none text-button" on:click={onLogout}>Keluar</button>
+                    </div> -->
+                    <img class="rounded-full" src="{$currentUser.photoURL}" alt="avatar" width="40" height="40" />
+                </div>
+            {:else }
+                <button on:click={onLogin} disabled={typeof($currentUser) == 'undefined'}>Masuk</button>
+            {/if}
+        </div>
     </div>
 </nav>
 
 <style lang="postcss">
     nav {
-        @apply container py-5 flex justify-between items-center sticky top-0;
-        backdrop-filter: blur(10px);
+        @apply sticky top-0;
+        backdrop-filter: blur(50px);
         z-index: 100;
+    }
+    nav > div {
+        @apply container py-5 flex justify-between items-center;
     }
 </style>
