@@ -1,10 +1,13 @@
 <script lang="ts">
 	import { loginWithGoogle } from "$lib/auth";
 	import { auth } from "$lib/firebase";
-	import { onLog } from "firebase/app";
 	import type { User } from "firebase/auth";
 	import { getContext } from "svelte";
 	import type { Writable } from "svelte/store";
+    // @ts-ignore
+    import { Icon } from 'svelte-fontawesome';
+	import { faArrowRightFromBracket, faClockRotateLeft } from "@fortawesome/free-solid-svg-icons";
+	import { goto } from "$app/navigation";
 
     const currentUser = getContext<Writable<User | null | undefined>>('currentUser');
 
@@ -12,8 +15,9 @@
         loginWithGoogle();
     }
 
-    function onLogout() {
-        auth.signOut();
+    async function onLogout() {
+        await auth.signOut();
+        goto("/");
     }
 </script>
 
@@ -28,11 +32,13 @@
         <div>
             {#if $currentUser}
                 <div class="flex items-center">
-                    <!-- <div class="mr-3 text-right">
-                        <div class="leading-none">{$currentUser.displayName}</div>
-                        <button class="text-sm leading-none text-button" on:click={onLogout}>Keluar</button>
-                    </div> -->
-                    <img class="rounded-full" src="{$currentUser.photoURL}" alt="avatar" width="40" height="40" />
+                    <button class="text-button" title="Riwayat">
+                        <Icon icon={faClockRotateLeft} class="mr-5 text-xl mb-0.5" />
+                    </button>
+                    <button class="text-button" on:click={onLogout} title="Keluar">
+                        <Icon icon={faArrowRightFromBracket} class="mr-5 text-xl mb-0.5" />
+                    </button>
+                    <img class="rounded-full" src="{$currentUser.photoURL}" alt="avatar" width="36" height="36" />
                 </div>
             {:else }
                 <button on:click={onLogin} disabled={typeof($currentUser) == 'undefined'}>Masuk</button>

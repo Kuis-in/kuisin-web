@@ -6,6 +6,9 @@
 	import LoadingIndicator from '$lib/components/LoadingIndicator.svelte';
 	import { HubConnection, HubConnectionBuilder } from '@microsoft/signalr';
 	import { auth } from '$lib/firebase';
+    // @ts-ignore
+    import { Icon } from 'svelte-fontawesome';
+	import { faCopy } from '@fortawesome/free-solid-svg-icons';
 
     let jobDetail = $page.data.job as (JobLog | null);
     let latestTranscriptStatusMsg = "Mohon tunggu...";
@@ -119,7 +122,10 @@
             <div class="section-header">
                 <div class="text-xl font-semibold">Transkrip</div>
                 {#if jobDetail?.resultTranscript}
-                    <button class="text-button" on:click={onTranscriptCopyToClipboard}>Salin ke clipboard</button>
+                    <button class="text-button" on:click={onTranscriptCopyToClipboard} title="Salin ke clipboard">
+                        <!-- Salin ke clipboard -->
+                        <Icon icon={faCopy} class="mb-0.5 text-xl" />
+                    </button>
                 {/if}
             </div>
             <div class="mb-10 result-container">
@@ -139,7 +145,10 @@
                 <div class="text-xl font-semibold">Quiz</div>
                 {#if jobDetail?.resultQuiz}
                     <div class="flex items-center">
-                        <button class="mr-4 text-button" on:click={onQuizCopyToClipboard}>Salin ke clipboard</button>
+                        <button class="mr-4 text-button" on:click={onQuizCopyToClipboard} title="Salin ke clipboard">
+                            <!-- Salin ke clipboard -->
+                            <Icon icon={faCopy} class="mb-0.5 text-xl" />
+                        </button>
                         <select on:change={onQuizViewModeChanged} class="py-0 my-0">
                             <option value="text">Teks</option>
                             <option value="json">JSON</option>

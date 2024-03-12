@@ -15,7 +15,7 @@ button:not(.text-button) {
 button.text-button,
 a.link {
 	transition: all 0.2s ease-in-out;
-	@apply text-primary hover:text-secondary;
+	@apply hover:text-secondary;
 }
 
 input[type='text'],
