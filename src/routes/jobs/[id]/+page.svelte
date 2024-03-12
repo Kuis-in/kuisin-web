@@ -114,7 +114,7 @@
             <a href="{getVideoUrl()}" class="link" target="_blank">Lihat Video ></a>
         </div>
     </div>
-    <div class="grid md:gap-8 md:grid-cols-2">
+    <div class="md:grid md:gap-8 md:grid-cols-2">
         <div>
             <div class="section-header">
                 <div class="text-xl font-semibold">Transkrip</div>
@@ -178,7 +178,7 @@
 
 <style lang="postcss">
     .result-container {
-        @apply md:p-5 p-4 border border-[#3C434F] rounded-lg;
+        @apply md:p-5 p-4 border border-[#3C434F] rounded-lg overflow-auto;
     }
     .video-thumbnail {
         @apply md:mr-8 mb-4 md:mb-0;
