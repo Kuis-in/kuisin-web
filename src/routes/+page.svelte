@@ -114,7 +114,7 @@
         </div>
     </div>
     <form class="w-full max-w-4xl" on:submit|preventDefault={handleSubmit}>
-        <div class="flex flex-col items-center justify-center mb-5 md:flex-row">
+        <div class="flex flex-col items-center justify-center mb-3 md:flex-row">
             <div class="w-full mb-2 mr-2 md:mb-0">
                 <label for="videoUrl">YouTube URL</label>
                 <input 
@@ -184,6 +184,9 @@
                 </select>
             </div>
         </div>
+        <p class="mb-5 text-xs text-center">
+            Durasi video yang didukung saat ini maksimal 30 menit
+        </p>
         <div class="flex items-center justify-center">
             <button class="primary-button" type="submit" disabled={submitting || typeof($currentUser) == 'undefined'}>
                 {#if submitting}
