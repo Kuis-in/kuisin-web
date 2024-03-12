@@ -1,6 +1,6 @@
 <footer>
     <div class="container flex items-center justify-between py-5">
-        <div>Copyright @ 2023 Putu Prema</div>
+        <div>Copyright @ 2024 Putu Prema</div>
     </div>
 </footer>
 
