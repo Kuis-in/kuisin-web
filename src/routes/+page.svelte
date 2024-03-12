@@ -43,10 +43,20 @@
                 },
                 body: JSON.stringify({ videoId, numberOfQuestions, quizLanguage, wordingStyle }),
             });
+            if (res.status !== 200) {
+                if (res.status === 404) alert("Video tidak ditemukan");
+                else if (res.status === 500) alert("Terjadi kesalahan pada server. Silahkan coba beberapa saat lagi")
+                else {
+                    const error: { message: string } = await res.json();
+                    alert(error.message);
+                }
+                return;
+            }
             const result: { id: string } = await res.json();
             goto("/jobs/" + result.id);
         } catch (e) {
             console.error(e);
+        } finally {
             submitting = false;
         }
     }
