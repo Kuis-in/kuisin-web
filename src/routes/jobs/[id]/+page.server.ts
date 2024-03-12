@@ -8,6 +8,7 @@ export const load: PageServerLoad = async ({ params, fetch, cookies }) => {
 		method: 'GET',
 		headers: accessToken ? { Authorization: 'Bearer ' + accessToken } : undefined
 	});
+	if (res.status !== 200) return { job: null };
 	const job = (await res.json()) as JobLog;
 	return { job };
 };

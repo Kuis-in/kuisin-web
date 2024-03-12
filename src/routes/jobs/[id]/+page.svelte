@@ -7,7 +7,7 @@
 	import { HubConnection, HubConnectionBuilder } from '@microsoft/signalr';
 	import { auth } from '$lib/firebase';
 
-    let jobDetail = $page.data.job as JobLog;
+    let jobDetail = $page.data.job as (JobLog | null);
     let latestTranscriptStatusMsg = "Mohon tunggu...";
     let latestQuizStatusMsg = "Mohon tunggu...";
     let isQuizJsonViewMode = false;
@@ -31,7 +31,7 @@
             }
         });
 
-        if (jobDetail.resultQuiz == null || jobDetail.resultTranscript == null) {
+        if (jobDetail != null && (jobDetail.resultQuiz == null || jobDetail.resultTranscript == null)) {
             auth.authStateReady().then(() => {
                 jobLiveStatusHub.start()
                     .then(() => {
@@ -49,8 +49,8 @@
     })
 
     function getQuizQuestions(): QuizQuestion[] {
-        if (jobDetail.resultQuiz == null) return [];
-        return jobDetail.resultQuiz.questions;
+        if (jobDetail?.resultQuiz == null) return [];
+        return jobDetail?.resultQuiz.questions ?? [];
     }
 
     function onQuizViewModeChanged(event: Event & { currentTarget: EventTarget & HTMLSelectElement; }) {
@@ -58,15 +58,15 @@
     }
 
     function setLoadingStatusMessage() {
-        if (jobDetail.resultTranscript == null) {
+        if (jobDetail?.resultTranscript == null) {
             latestTranscriptStatusMsg = "Membuat transkrip...";
-        } else if (jobDetail.resultQuiz == null) {
+        } else if (jobDetail?.resultQuiz == null) {
             latestQuizStatusMsg = "Membuat quiz berdasarkan transkrip...";
         }
     }
 
     async function onTranscriptCopyToClipboard() {
-        if (jobDetail.resultTranscript) {
+        if (jobDetail?.resultTranscript) {
             try {
                 await navigator.clipboard.writeText(jobDetail.resultTranscript);
                 alert("Transkrip berhasil disalin ke clipboard!");
@@ -77,7 +77,7 @@
     }
 
     async function onQuizCopyToClipboard() {
-        if (jobDetail.resultQuiz) {
+        if (jobDetail?.resultQuiz) {
             try {
                 if (isQuizJsonViewMode) {
                     await navigator.clipboard.writeText(JSON.stringify(jobDetail.resultQuiz, null, 2));
@@ -101,13 +101,13 @@
     <div>
         <div class="flex items-center justify-between mb-3">
             <div class="text-xl font-semibold">Transkrip</div>
-            {#if jobDetail.resultTranscript}
+            {#if jobDetail?.resultTranscript}
                 <button class="text-button" on:click={onTranscriptCopyToClipboard}>Salin ke clipboard</button>
             {/if}
         </div>
         <div class="mb-10 result-container">
-            {#if jobDetail.resultTranscript}
-                {jobDetail.resultTranscript}
+            {#if jobDetail?.resultTranscript}
+                {jobDetail?.resultTranscript}
             {:else}
                 <div class="flex items-center justify-center">
                     <LoadingIndicator />
@@ -120,7 +120,7 @@
     <div>
         <div class="flex items-center justify-between mb-3">
             <div class="text-xl font-semibold">Quiz</div>
-            {#if jobDetail.resultQuiz}
+            {#if jobDetail?.resultQuiz}
                 <div class="flex items-center">
                     <button class="mr-4 text-button" on:click={onQuizCopyToClipboard}>Salin ke clipboard</button>
                     <select on:change={onQuizViewModeChanged} class="py-0 my-0">
@@ -131,7 +131,7 @@
             {/if}
         </div>
         <div id="quizResultContainer" class="flex flex-col result-container">
-            {#if jobDetail.resultQuiz}
+            {#if jobDetail?.resultQuiz}
                 {#if isQuizJsonViewMode}
                     <pre>{JSON.stringify(jobDetail.resultQuiz, null, 2)}</pre>
                 {:else}
