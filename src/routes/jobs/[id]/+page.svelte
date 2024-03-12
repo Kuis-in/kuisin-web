@@ -58,9 +58,10 @@
     }
 
     function setLoadingStatusMessage() {
-        if (jobDetail?.resultTranscript == null) {
+        if (jobDetail == null) return;
+        if (jobDetail.resultTranscript == null) {
             latestTranscriptStatusMsg = "Membuat transkrip...";
-        } else if (jobDetail?.resultQuiz == null) {
+        } else if (jobDetail.resultQuiz == null) {
             latestQuizStatusMsg = "Membuat quiz berdasarkan transkrip...";
         }
     }
