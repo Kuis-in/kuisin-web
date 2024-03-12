@@ -7,6 +7,7 @@
 	import { writable } from "svelte/store";
 	import type { User } from "firebase/auth";
     import { setCookie } from 'typescript-cookie';
+    import { ProgressBar } from "@prgm/sveltekit-progress-bar";
 
     const currentUser = writable<User | null | undefined>();
     setContext('currentUser', currentUser);
@@ -29,6 +30,8 @@
     });
 </script>
 
+
+<ProgressBar class="text-primary" zIndex={999} />
 <Navbar />
 
 <div class="container pt-4 pb-24 lg:pt-10">
