@@ -1,10 +1,16 @@
 <script lang="ts">
+	import { loginWithGoogle } from "$lib/auth";
 	import { auth } from "$lib/firebase";
+	import { onLog } from "firebase/app";
 	import type { User } from "firebase/auth";
 	import { getContext } from "svelte";
 	import type { Writable } from "svelte/store";
 
     const currentUser = getContext<Writable<User | null | undefined>>('currentUser');
+
+    function onLogin() {
+        loginWithGoogle();
+    }
 
     function onLogout() {
         auth.signOut();
@@ -27,6 +33,8 @@
                 </div> -->
                 <img class="rounded-full" src="{$currentUser.photoURL}" alt="avatar" width="40" height="40" />
             </div>
+        {:else }
+            <button on:click={onLogin} disabled={typeof($currentUser) == 'undefined'}>Masuk</button>
         {/if}
     </div>
 </nav>
