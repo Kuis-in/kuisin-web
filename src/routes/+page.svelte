@@ -106,7 +106,7 @@
     <form class="w-full max-w-4xl" on:submit|preventDefault={handleSubmit}>
         <div class="flex flex-col items-center justify-center mb-5 md:flex-row">
             <div class="w-full mb-2 mr-2 md:mb-0">
-                <div>YouTube URL</div>
+                <label for="videoUrl">YouTube URL</label>
                 <input 
                     class="w-full"
                     name="videoUrl" 
@@ -129,7 +129,7 @@
                 />
             </div>
             <div class="w-full mb-2 mr-2 md:w-5/12 md:mb-0">
-                <div># Pertanyaan</div>
+                <label for="numberOfQuestions"># Pertanyaan</label>
                 <input 
                     class="w-full" 
                     name="numberOfQuestions" 
@@ -158,14 +158,14 @@
                 />
             </div>
             <div class="w-full mb-2 mr-2 md:w-auto md:mb-0">
-                <div>Bahasa Quiz</div>
+                <label for="quizLanguage">Bahasa Quiz</label>
                 <select name="quizLanguage" class="w-full md:w-auto">
                     <option value="ID">Bahasa Indonesia</option>
                     <option value="EN">English</option>
                 </select>
             </div>
             <div class="w-full mr-2 md:w-auto">
-                <div>Gaya Bahasa</div>
+                <label for="wordingStyle">Gaya Bahasa</label>
                 <select name="wordingStyle" class="w-full md:w-auto">
                     <option value="Formal">Formal</option>
                     <option value="Funny">Gaul</option>
