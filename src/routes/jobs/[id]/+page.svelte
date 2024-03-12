@@ -110,7 +110,7 @@
 </script>
 
 <main>
-    <div class="flex flex-col items-center md:flex-row">
+    <div class="flex flex-col items-center mb-8 md:flex-row">
         <img src="{jobDetail?.videoThumbnailUrl}" alt="{jobDetail?.videoTitle}" class="video-thumbnail">
         <div class="text-center md:text-start">
             <h1 class="text-2xl font-bold lg:text-4xl">{jobDetail?.videoTitle}</h1>
@@ -194,9 +194,9 @@
         height: 100px;
     }
     .section-header {
-        @apply flex items-center justify-between pb-3 pt-10;
+        @apply flex items-center justify-between pb-2 pt-2;
         background-color: #040e1f;
         position: sticky;
-        top: 50px;
+        top: 80px;
     }
 </style>
