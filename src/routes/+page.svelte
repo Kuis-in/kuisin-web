@@ -109,6 +109,7 @@
                 <label for="videoUrl">YouTube URL</label>
                 <input 
                     class="w-full"
+                    id="videoUrl"
                     name="videoUrl" 
                     type="text" 
                     required
@@ -132,6 +133,7 @@
                 <label for="numberOfQuestions"># Pertanyaan</label>
                 <input 
                     class="w-full" 
+                    id="numberOfQuestions" 
                     name="numberOfQuestions" 
                     type="number" 
                     required
@@ -159,14 +161,14 @@
             </div>
             <div class="w-full mb-2 mr-2 md:w-auto md:mb-0">
                 <label for="quizLanguage">Bahasa Quiz</label>
-                <select name="quizLanguage" class="w-full md:w-auto">
+                <select id="quizLanguage" name="quizLanguage" class="w-full md:w-auto" title="Bahasa Quiz">
                     <option value="ID">Bahasa Indonesia</option>
                     <option value="EN">English</option>
                 </select>
             </div>
             <div class="w-full mr-2 md:w-auto">
                 <label for="wordingStyle">Gaya Bahasa</label>
-                <select name="wordingStyle" class="w-full md:w-auto">
+                <select id="wordingStyle" name="wordingStyle" class="w-full md:w-auto" title="Gaya Bahasa">
                     <option value="Formal">Formal</option>
                     <option value="Funny">Gaul</option>
                 </select>
